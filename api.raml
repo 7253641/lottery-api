@@ -1,0 +1,57 @@
+#%RAML 1.0
+title: Lottery API
+mediaType: application/json
+baseUri: /lottery-api
+# baseUri: http://api.e-bookmobile.com/{version}
+version: v1
+description: 体彩接口
+types:
+ TestType:
+   type: object
+   properties:
+     id: number
+     optional?: string
+     expanded:
+       type: object
+       properties:
+         count: number
+ Lots:
+   properties:
+     name: string
+     kind: string
+     data: string
+   example:
+     "name": "洛图 KT301"
+     "kind": "串口打印机"
+     "data": "光栅位图数据"
+resourceTypes:
+  Collection:
+    get:
+      responses:
+        200:
+          description: 正常返回
+          body:
+            application/json:
+              type: Lots[]
+    post:
+      body:
+        application/json:
+          type: Lots
+/helloWorld:
+ get:
+   responses:
+     200:
+       body:
+         application/json:
+          example: |
+             {
+/lots:
+  type: Collection
+  /{id}:
+    put:
+      body:
+        application/json:
+          type: Lots
+    delete:
+      responses:
+        204:
